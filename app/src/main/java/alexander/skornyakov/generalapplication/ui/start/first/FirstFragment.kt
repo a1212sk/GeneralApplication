@@ -9,6 +9,9 @@ import android.view.ViewGroup
 import alexander.skornyakov.generalapplication.R
 import alexander.skornyakov.generalapplication.databinding.StartFirstFragmentBinding
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 
 class FirstFragment : Fragment() {
 
@@ -29,9 +32,8 @@ class FirstFragment : Fragment() {
             container,
             false)
         binding.goToSecondBtn.setOnClickListener {
-            requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.container, SecondFragment.newInstance())
-                .commitNow()
+            Navigation.findNavController(requireActivity(),R.id.nav_controller)
+                .navigate(FirstFragmentDirections.actionFirstFragmentToSecondFragment())
         }
         return binding.root
     }
