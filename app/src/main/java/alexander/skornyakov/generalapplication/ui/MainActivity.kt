@@ -1,5 +1,6 @@
-package alexander.skornyakov.generalapplication
+package alexander.skornyakov.generalapplication.ui
 
+import alexander.skornyakov.generalapplication.R
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
