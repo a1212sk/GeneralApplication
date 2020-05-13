@@ -25,7 +25,7 @@ class SplashActivity : AppCompatActivity(){
         storage = ApplicationStorage(this)
         GlobalScope.launch {
             Thread.sleep(SPLASH_LATENCY)
-            if(goToMain()) {
+            if(checked()) {
                 Intent(applicationContext, MainActivity::class.java).let {
                     startActivity(it)
                     finish()
@@ -40,7 +40,7 @@ class SplashActivity : AppCompatActivity(){
         }
     }
 
-    fun goToMain():Boolean{
+    fun checked():Boolean{
         val firstLaunch = storage.getString("firstLaunch")
         if(firstLaunch=="false"){
             return true
