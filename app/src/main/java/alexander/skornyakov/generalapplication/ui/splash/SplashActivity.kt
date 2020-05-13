@@ -2,8 +2,8 @@ package alexander.skornyakov.generalapplication.ui.splash
 
 import alexander.skornyakov.generalapplication.R
 import alexander.skornyakov.generalapplication.data.ApplicationStorage
-import alexander.skornyakov.generalapplication.ui.MainActivity
-import alexander.skornyakov.generalapplication.ui.StartActivity
+import alexander.skornyakov.generalapplication.ui.main.MainActivity
+import alexander.skornyakov.generalapplication.ui.start.StartActivity
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

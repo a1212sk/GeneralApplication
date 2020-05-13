@@ -1,13 +1,9 @@
-package alexander.skornyakov.generalapplication.ui
+package alexander.skornyakov.generalapplication.ui.start
 
 import alexander.skornyakov.generalapplication.R
-import alexander.skornyakov.generalapplication.data.ApplicationStorage
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import alexander.skornyakov.generalapplication.ui.start.StartFragment
-import android.content.Intent
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import alexander.skornyakov.generalapplication.ui.start.first.FirstFragment
 
 class StartActivity : AppCompatActivity() {
 
@@ -17,7 +13,7 @@ class StartActivity : AppCompatActivity() {
         setContentView(R.layout.start_activity)
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.container, StartFragment.newInstance())
+                .replace(R.id.container, FirstFragment.newInstance())
                 .commitNow()
         }
     }
