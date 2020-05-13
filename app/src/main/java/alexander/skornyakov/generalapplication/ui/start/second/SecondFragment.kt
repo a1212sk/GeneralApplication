@@ -7,38 +7,33 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import alexander.skornyakov.generalapplication.R
-import alexander.skornyakov.generalapplication.databinding.StartFirstFragmentBinding
+import alexander.skornyakov.generalapplication.databinding.StartSecondFragmentBinding
 import androidx.databinding.DataBindingUtil
 
-class FirstFragment : Fragment() {
+class SecondFragment : Fragment() {
 
     companion object {
         fun newInstance() =
-            FirstFragment()
+            SecondFragment()
     }
 
-    private lateinit var viewModel: FirstViewModel
+    private lateinit var viewModel: SecondViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val binding = DataBindingUtil.inflate<StartFirstFragmentBinding>(
+        val binding = DataBindingUtil.inflate<StartSecondFragmentBinding>(
             inflater,
-            R.layout.start_first_fragment,
+            R.layout.start_second_fragment,
             container,
             false)
-        binding.goToSecondBtn.setOnClickListener {
-            requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.container, SecondFragment.newInstance())
-                .commitNow()
-        }
         return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(FirstViewModel::class.java)
+        viewModel = ViewModelProviders.of(this).get(SecondViewModel::class.java)
         // TODO: Use the ViewModel
     }
 
