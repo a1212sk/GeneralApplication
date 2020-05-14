@@ -4,6 +4,7 @@ import alexander.skornyakov.generalapplication.di.ViewModelKey
 import alexander.skornyakov.generalapplication.ui.start.StartActivity
 import alexander.skornyakov.generalapplication.ui.start.first.FirstFragment
 import alexander.skornyakov.generalapplication.ui.start.first.FirstViewModel
+import alexander.skornyakov.generalapplication.ui.start.first.SecondFragment
 import androidx.lifecycle.ViewModel
 import dagger.Binds
 import dagger.Subcomponent
@@ -19,5 +20,6 @@ interface StartSubcomponent{
 
     fun inject(activity: StartActivity)
     fun inject(fragment: FirstFragment)
+    fun inject(fragment: SecondFragment)
 
 }

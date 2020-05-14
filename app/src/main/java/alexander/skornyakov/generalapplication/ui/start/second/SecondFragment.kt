@@ -8,7 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import alexander.skornyakov.generalapplication.R
 import alexander.skornyakov.generalapplication.databinding.StartSecondFragmentBinding
+import alexander.skornyakov.generalapplication.ui.main.MainActivity
+import alexander.skornyakov.generalapplication.ui.start.StartActivity
+import android.content.Context
+import android.content.Intent
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
+import javax.inject.Inject
 
 class SecondFragment : Fragment() {
 
@@ -17,6 +23,7 @@ class SecondFragment : Fragment() {
             SecondFragment()
     }
 
+    @Inject lateinit var viewModelProviderFactory: ViewModelProvider.Factory
     private lateinit var viewModel: SecondViewModel
 
     override fun onCreateView(
@@ -28,13 +35,19 @@ class SecondFragment : Fragment() {
             R.layout.start_second_fragment,
             container,
             false)
+        binding.vm = viewModel
+        binding.button.setOnClickListener {
+            Intent(context, MainActivity::class.java).let {
+                startActivity(it)
+                activity?.finish()
+            }
+        }
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(SecondViewModel::class.java)
-        // TODO: Use the ViewModel
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (activity as StartActivity).startComponent.inject(this)
+        viewModel = viewModelProviderFactory.create(SecondViewModel::class.java)
     }
-
 }

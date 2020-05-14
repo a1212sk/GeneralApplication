@@ -7,7 +7,7 @@ import android.app.Application
 class BaseApplication : Application(){
 
     val appComponent : AppComponent by lazy{
-        DaggerAppComponent.create()
+        DaggerAppComponent.factory().create(applicationContext)
     }
 
 }

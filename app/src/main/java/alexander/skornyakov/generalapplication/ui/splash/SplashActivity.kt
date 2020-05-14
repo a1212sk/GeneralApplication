@@ -1,5 +1,6 @@
 package alexander.skornyakov.generalapplication.ui.splash
 
+import alexander.skornyakov.generalapplication.BaseApplication
 import alexander.skornyakov.generalapplication.R
 import alexander.skornyakov.generalapplication.data.ApplicationStorage
 import alexander.skornyakov.generalapplication.ui.main.MainActivity
@@ -9,20 +10,23 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 class SplashActivity : AppCompatActivity(){
 
+    @Inject
     lateinit var storage: ApplicationStorage
+
     val SPLASH_LATENCY = 300L
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        (application as BaseApplication).appComponent.inject(this)
         super.onCreate(savedInstanceState)
 
         // 1. Set layout
         setContentView(R.layout.splash_activity)
 
         // 2. Check settings and move forward
-        storage = ApplicationStorage(this)
         GlobalScope.launch {
             Thread.sleep(SPLASH_LATENCY)
             if(checked()) {

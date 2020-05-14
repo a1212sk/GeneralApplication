@@ -3,8 +3,11 @@ package alexander.skornyakov.generalapplication.data
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class ApplicationStorage constructor(private val context: Context) : Storage{
+@Singleton
+class ApplicationStorage @Inject constructor(private val context: Context) : Storage{
 
     private val sharedPreferences = context.getSharedPreferences("Preferences", MODE_PRIVATE)
 
