@@ -1,7 +1,10 @@
 package alexander.skornyakov.generalapplication.ui.start.first
 
 import androidx.lifecycle.ViewModel
+import javax.inject.Inject
 
-class FirstViewModel : ViewModel() {
-    // TODO: Implement the ViewModel
+class FirstViewModel @Inject constructor(): ViewModel() {
+
+    val message = "Hello!"
+
 }
