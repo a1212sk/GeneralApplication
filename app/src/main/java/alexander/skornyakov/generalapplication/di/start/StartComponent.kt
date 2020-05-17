@@ -1,21 +1,16 @@
 package alexander.skornyakov.generalapplication.di.start
 
-import alexander.skornyakov.generalapplication.di.ViewModelKey
 import alexander.skornyakov.generalapplication.ui.start.StartActivity
 import alexander.skornyakov.generalapplication.ui.start.first.FirstFragment
-import alexander.skornyakov.generalapplication.ui.start.first.FirstViewModel
 import alexander.skornyakov.generalapplication.ui.start.first.SecondFragment
-import androidx.lifecycle.ViewModel
-import dagger.Binds
 import dagger.Subcomponent
-import dagger.multibindings.IntoMap
 
 @Subcomponent(modules = [StartModule::class])
-interface StartSubcomponent{
+interface StartComponent{
 
     @Subcomponent.Factory
     interface Factory{
-        fun create():StartSubcomponent
+        fun create():StartComponent
     }
 
     fun inject(activity: StartActivity)

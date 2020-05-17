@@ -1,7 +1,8 @@
 package alexander.skornyakov.generalapplication.di
 
-import alexander.skornyakov.generalapplication.di.start.StartSubcomponent
+import alexander.skornyakov.generalapplication.di.main.MainComponent
+import alexander.skornyakov.generalapplication.di.start.StartComponent
 import dagger.Module
 
-@Module(subcomponents = [StartSubcomponent::class])
+@Module(subcomponents = [StartComponent::class, MainComponent::class])
 abstract class AppSubcomponentsModule
