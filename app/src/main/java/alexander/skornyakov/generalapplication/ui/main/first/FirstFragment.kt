@@ -5,12 +5,15 @@ import alexander.skornyakov.generalapplication.ViewModelProviderFactory
 import alexander.skornyakov.generalapplication.data.model.MainFirstModel
 import alexander.skornyakov.generalapplication.databinding.MainFirstFragmentBinding
 import alexander.skornyakov.generalapplication.ui.main.MainActivity
+import alexander.skornyakov.generalapplication.ui.main.first.FirstRecyclerViewAdapter.OnItemClickListener
 import android.content.Context
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -34,6 +37,17 @@ class FirstFragment : Fragment(){
             container,
             false)
         binding.vm = vm
+        initRecyclerView(binding)
+        return binding.root
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (requireActivity() as MainActivity).mainComponent.inject(this)
+        vm = viewModelProviderFactory.create(FirstViewModel::class.java)
+    }
+
+    fun initRecyclerView(binding: MainFirstFragmentBinding){
         val data = mutableListOf<MainFirstModel>()
         for(i in 0..10){
             val image = BitmapFactory.decodeResource(context?.resources,R.drawable.daisies_5091308_640)
@@ -42,14 +56,12 @@ class FirstFragment : Fragment(){
         }
         val rvAdapter = FirstRecyclerViewAdapter(data)
         binding.rv.adapter = rvAdapter
+        binding.rv.setHasFixedSize(true)
         binding.rv.layoutManager = LinearLayoutManager(context)
-
-        return binding.root
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        (requireActivity() as MainActivity).mainComponent.inject(this)
-        vm = viewModelProviderFactory.create(FirstViewModel::class.java)
+        rvAdapter.setOnItemClickListener(object : OnItemClickListener {
+            override fun onItemClick(view: View, position: Int) {
+                Toast.makeText(context,view.findViewById<TextView>(R.id.header).text,Toast.LENGTH_LONG).show()
+            }
+        })
     }
 }
