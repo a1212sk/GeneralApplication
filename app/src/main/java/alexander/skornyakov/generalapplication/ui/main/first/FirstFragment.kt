@@ -37,7 +37,7 @@ class FirstFragment : Fragment(){
         val data = mutableListOf<MainFirstModel>()
         for(i in 0..10){
             val image = BitmapFactory.decodeResource(context?.resources,R.drawable.daisies_5091308_640)
-            val item = MainFirstModel("Header",image,resources.getString(R.string.text))
+            val item = MainFirstModel("Header $i", image,resources.getString(R.string.text))
             data.add(item)
         }
         val rvAdapter = FirstRecyclerViewAdapter(data)
