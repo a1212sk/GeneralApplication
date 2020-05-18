@@ -16,6 +16,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.main_first_fragment.*
@@ -37,7 +38,7 @@ class FirstFragment : Fragment(){
             container,
             false)
         binding.vm = vm
-        initRecyclerView(binding)
+        initData(binding)
         return binding.root
     }
 
@@ -47,13 +48,21 @@ class FirstFragment : Fragment(){
         vm = viewModelProviderFactory.create(FirstViewModel::class.java)
     }
 
-    fun initRecyclerView(binding: MainFirstFragmentBinding){
+    fun initData(binding: MainFirstFragmentBinding){
+        binding.vm?.items?.observe(viewLifecycleOwner, Observer {
+            initRecyclerView(binding)
+        })
         val data = mutableListOf<MainFirstModel>()
         for(i in 0..10){
             val image = BitmapFactory.decodeResource(context?.resources,R.drawable.daisies_5091308_640)
             val item = MainFirstModel("Header $i", image,resources.getString(R.string.text))
             data.add(item)
         }
+        binding.vm?.items?.postValue(data)
+    }
+
+    fun initRecyclerView(binding: MainFirstFragmentBinding){
+        val data = binding.vm?.items?.value!!
         val rvAdapter = FirstRecyclerViewAdapter(data)
         binding.rv.adapter = rvAdapter
         binding.rv.setHasFixedSize(true)
