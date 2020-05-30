@@ -1,5 +1,6 @@
 package alexander.skornyakov.generalapplication.ui.main.second
 
+import alexander.skornyakov.generalapplication.data.model.MainSecondModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -16,5 +17,10 @@ class SecondViewModel @Inject constructor() : ViewModel(){
             _chapter.value = num
         }
     }
+
+    val message = "Second fragment"
+
+    val items = MutableLiveData<List<MainSecondModel>>()
+
 
 }
