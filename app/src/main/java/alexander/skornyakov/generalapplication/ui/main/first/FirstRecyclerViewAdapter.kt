@@ -23,7 +23,8 @@ class FirstRecyclerViewAdapter constructor(val data: List<MainFirstModel>)
         this.listener = listener
     }
 
-    class FirstViewHolder(itemView: View, val listener: OnItemClickListener? = null) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+    class FirstViewHolder(itemView: View, val listener: OnItemClickListener? = null)
+        : RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
         val header = itemView.findViewById<TextView>(R.id.header)
         val text = itemView.findViewById<TextView>(R.id.text)
@@ -53,9 +54,11 @@ class FirstRecyclerViewAdapter constructor(val data: List<MainFirstModel>)
 
     override fun onBindViewHolder(holder: FirstViewHolder, position: Int) {
         val model = data.get(position)
-        holder.header.text = model.header
-        holder.text.text = model.text
-        holder.image.setImageBitmap(model.image)
+        holder.apply {
+            header.text = model.header
+            text.text = model.text
+            image.setImageBitmap(model.image)
+        }
     }
 
 }
