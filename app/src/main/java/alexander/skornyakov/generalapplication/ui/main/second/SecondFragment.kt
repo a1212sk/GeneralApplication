@@ -11,7 +11,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.navArgs
 import javax.inject.Inject
 
 class SecondFragment : Fragment(){
@@ -30,6 +32,11 @@ class SecondFragment : Fragment(){
             container,
             false)
         binding.vm = vm
+        vm.chapter.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                binding.textView2.text = it.toString()
+            }
+        })
         return binding.root
     }
 
@@ -37,5 +44,7 @@ class SecondFragment : Fragment(){
         super.onAttach(context)
         (requireActivity() as MainActivity).mainComponent.inject(this)
         vm = viewModelProviderFactory.create(SecondViewModel::class.java)
+        val chapter = arguments?.get("chapterNumber") as Int
+        vm.setChapter(chapter)
     }
 }

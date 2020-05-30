@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.core.graphics.drawable.toBitmap
 import androidx.recyclerview.widget.RecyclerView
 
@@ -30,7 +31,7 @@ class FirstRecyclerViewAdapter constructor(val data: List<MainFirstModel>)
         val text = itemView.findViewById<TextView>(R.id.text)
         val image = itemView.findViewById<ImageView>(R.id.image)
         init{
-            itemView.setOnClickListener(this)
+            itemView.findViewById<CardView>(R.id.first_card).setOnClickListener(this)
         }
         override fun onClick(view: View?) {
             val position = adapterPosition
@@ -41,7 +42,6 @@ class FirstRecyclerViewAdapter constructor(val data: List<MainFirstModel>)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FirstViewHolder {
-       // TODO("BINDING")
         val inflater = LayoutInflater.from(parent.context)
         val view = inflater.inflate(R.layout.main_first_rv_item, parent, false)
         val viewHolder = FirstViewHolder(view, listener)

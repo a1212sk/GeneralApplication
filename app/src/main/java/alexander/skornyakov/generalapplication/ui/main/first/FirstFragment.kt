@@ -9,6 +9,7 @@ import alexander.skornyakov.generalapplication.ui.main.first.FirstRecyclerViewAd
 import android.content.Context
 import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +19,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.main_first_fragment.*
 import javax.inject.Inject
@@ -61,7 +63,7 @@ class FirstFragment : Fragment(){
         binding.vm?.items?.postValue(data)
     }
 
-    fun initRecyclerView(binding: MainFirstFragmentBinding){
+    private fun initRecyclerView(binding: MainFirstFragmentBinding){
         val data = binding.vm?.items?.value!!
         val rvAdapter = FirstRecyclerViewAdapter(data)
         binding.rv.adapter = rvAdapter
@@ -69,7 +71,9 @@ class FirstFragment : Fragment(){
         binding.rv.layoutManager = LinearLayoutManager(context)
         rvAdapter.setOnItemClickListener(object : OnItemClickListener {
             override fun onItemClick(view: View, position: Int) {
-                Toast.makeText(context,view.findViewById<TextView>(R.id.header).text,Toast.LENGTH_LONG).show()
+                Log.d("FirstFragment","clicked "+position)
+                val action = FirstFragmentDirections.actionMainFirstFragmentToMainSecondFragment(position)
+                findNavController().navigate(action)
             }
         })
     }
