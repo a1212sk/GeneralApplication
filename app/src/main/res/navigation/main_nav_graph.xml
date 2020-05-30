@@ -25,6 +25,10 @@
         android:name="alexander.skornyakov.generalapplication.ui.main.second.SecondFragment"
         android:label="SecondFragment"
         tools:layout="@layout/main_second_fragment">
+        <argument
+            android:name="chapterNumber"
+            app:argType="integer"
+            android:defaultValue="-1"/>
         <action
             android:id="@+id/action_mainSecondFragment_to_mainFirstFragment"
             app:destination="@id/mainFirstFragment"
