@@ -8,6 +8,8 @@ import android.os.Bundle
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -24,6 +26,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupToolbar(){
         var navController = findNavController(R.id.nav_controller)
-        NavigationUI.setupWithNavController(toolbar,navController)
+        var appBarConfiguration = AppBarConfiguration(navController.graph, drawer)
+        toolbar.setupWithNavController(navController, appBarConfiguration)
     }
 }
