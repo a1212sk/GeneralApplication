@@ -3,6 +3,7 @@ package alexander.skornyakov.generalapplication.ui.main.first
 import alexander.skornyakov.generalapplication.R
 import alexander.skornyakov.generalapplication.ViewModelProviderFactory
 import alexander.skornyakov.generalapplication.data.model.MainFirstModel
+import alexander.skornyakov.generalapplication.data.repository.IRepository
 import alexander.skornyakov.generalapplication.databinding.MainFirstFragmentBinding
 import alexander.skornyakov.generalapplication.ui.main.MainActivity
 import alexander.skornyakov.generalapplication.ui.main.first.FirstRecyclerViewAdapter.OnItemClickListener
@@ -22,12 +23,19 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.main_first_fragment.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.toList
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class FirstFragment : Fragment(){
 
     lateinit var vm : FirstViewModel
     @Inject lateinit var viewModelProviderFactory: ViewModelProvider.Factory
+    @Inject lateinit var repository: IRepository
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,13 +62,10 @@ class FirstFragment : Fragment(){
         binding.vm?.items?.observe(viewLifecycleOwner, Observer {
             initRecyclerView(binding)
         })
-        val data = mutableListOf<MainFirstModel>()
-        for(i in 0..10){
-            val image = BitmapFactory.decodeResource(context?.resources,R.drawable.daisies_5091308_640)
-            val item = MainFirstModel("Header $i", image,resources.getString(R.string.text))
-            data.add(item)
+        GlobalScope.launch {
+            val data = repository.getAllFirstModels().flowOn(Dispatchers.IO).toList()
+            binding.vm?.items?.postValue(data)
         }
-        binding.vm?.items?.postValue(data)
     }
 
     private fun initRecyclerView(binding: MainFirstFragmentBinding){
