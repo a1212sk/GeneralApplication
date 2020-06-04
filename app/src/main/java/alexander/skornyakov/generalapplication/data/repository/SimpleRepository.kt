@@ -26,6 +26,15 @@ class SimpleRepository @Inject constructor(val context: Context) : IRepository {
     }
 
     override fun getAllSecondModels(): Flow<MainSecondModel> {
-        TODO("Not yet implemented")
+        return flow {
+            repeat (10) {
+                val image =
+                    BitmapFactory.decodeResource(context?.resources, R.drawable.daisies_5091308_640)
+                val item =
+                    MainSecondModel("Second Header $it", image,
+                        context.resources.getString(R.string.text))
+                emit(item)
+            }
+        }
     }
 }
