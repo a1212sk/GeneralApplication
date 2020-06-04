@@ -5,6 +5,7 @@ import alexander.skornyakov.generalapplication.data.model.MainFirstModel
 import alexander.skornyakov.generalapplication.data.model.MainSecondModel
 import android.content.Context
 import android.graphics.BitmapFactory
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject

@@ -10,6 +10,10 @@ class FirstViewModel @Inject constructor() : ViewModel(){
 
     val message = "First fragment"
 
-    val items = MutableLiveData<List<MainFirstModel>>()
+    val items = MutableLiveData<MutableList<MainFirstModel>>()
+
+    init{
+        items.value = mutableListOf()
+    }
 
 }

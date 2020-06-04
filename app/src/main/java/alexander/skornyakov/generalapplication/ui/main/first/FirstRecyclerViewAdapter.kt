@@ -8,35 +8,38 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
-import androidx.core.graphics.drawable.toBitmap
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 
-class FirstRecyclerViewAdapter constructor(val data: List<MainFirstModel>)
-    : RecyclerView.Adapter<FirstRecyclerViewAdapter.FirstViewHolder>(){
+class FirstRecyclerViewAdapter :
+    ListAdapter<MainFirstModel, FirstRecyclerViewAdapter.FirstViewHolder>(ModelDiffCallback()) {
 
-    interface OnItemClickListener{
+    interface OnItemClickListener {
         fun onItemClick(view: View, position: Int)
     }
 
     private lateinit var listener: OnItemClickListener
 
-    fun setOnItemClickListener(listener: OnItemClickListener){
+    fun setOnItemClickListener(listener: OnItemClickListener) {
         this.listener = listener
     }
 
-    class FirstViewHolder(itemView: View, val listener: OnItemClickListener? = null)
-        : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+    class FirstViewHolder(itemView: View, val listener: OnItemClickListener? = null) :
+        RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
         val header = itemView.findViewById<TextView>(R.id.header)
         val text = itemView.findViewById<TextView>(R.id.text)
         val image = itemView.findViewById<ImageView>(R.id.image)
-        init{
+
+        init {
             itemView.findViewById<CardView>(R.id.first_card).setOnClickListener(this)
         }
+
         override fun onClick(view: View?) {
             val position = adapterPosition
-            if(position!=RecyclerView.NO_POSITION){
-                listener?.onItemClick(view!!,position)
+            if (position != RecyclerView.NO_POSITION) {
+                listener?.onItemClick(view!!, position)
             }
         }
     }
@@ -48,17 +51,24 @@ class FirstRecyclerViewAdapter constructor(val data: List<MainFirstModel>)
         return viewHolder
     }
 
-    override fun getItemCount(): Int {
-        return data.size
-    }
-
     override fun onBindViewHolder(holder: FirstViewHolder, position: Int) {
-        val model = data.get(position)
+        val model = getItem(position)
         holder.apply {
             header.text = model.header
             text.text = model.text
             image.setImageBitmap(model.image)
         }
+    }
+
+}
+
+class ModelDiffCallback : DiffUtil.ItemCallback<MainFirstModel>() {
+    override fun areItemsTheSame(oldItem: MainFirstModel, newItem: MainFirstModel): Boolean {
+        return oldItem == newItem
+    }
+
+    override fun areContentsTheSame(oldItem: MainFirstModel, newItem: MainFirstModel): Boolean {
+        return oldItem == newItem
     }
 
 }
