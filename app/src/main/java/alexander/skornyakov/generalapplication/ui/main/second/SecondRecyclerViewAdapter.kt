@@ -2,16 +2,19 @@ package alexander.skornyakov.generalapplication.ui.main.second
 
 import alexander.skornyakov.generalapplication.R
 import alexander.skornyakov.generalapplication.data.model.MainSecondModel
+import alexander.skornyakov.generalapplication.ui.main.second.ModelDiffCallback
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 
-class SecondRecyclerViewAdapter constructor(val data: List<MainSecondModel>)
-    : RecyclerView.Adapter<SecondRecyclerViewAdapter.SecondViewHolder>(){
+class SecondRecyclerViewAdapter
+    : ListAdapter<MainSecondModel, SecondRecyclerViewAdapter.SecondViewHolder>(ModelDiffCallback()){
 
     interface OnItemClickListener{
         fun onItemClick(view: View, position: Int)
@@ -47,17 +50,24 @@ class SecondRecyclerViewAdapter constructor(val data: List<MainSecondModel>)
         return viewHolder
     }
 
-    override fun getItemCount(): Int {
-        return data.size
-    }
-
     override fun onBindViewHolder(holder: SecondViewHolder, position: Int) {
-        val model = data.get(position)
+        val model = getItem(position)
         holder.apply {
             header.text = model.header
             text.text = model.text
             image.setImageBitmap(model.image)
         }
+    }
+
+}
+
+class ModelDiffCallback : DiffUtil.ItemCallback<MainSecondModel>() {
+    override fun areItemsTheSame(oldItem: MainSecondModel, newItem: MainSecondModel): Boolean {
+        return oldItem == newItem
+    }
+
+    override fun areContentsTheSame(oldItem: MainSecondModel, newItem: MainSecondModel): Boolean {
+        return oldItem == newItem
     }
 
 }

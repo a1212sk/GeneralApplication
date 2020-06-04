@@ -20,7 +20,11 @@ class SecondViewModel @Inject constructor() : ViewModel(){
 
     val message = "Second fragment"
 
-    val items = MutableLiveData<List<MainSecondModel>>()
+    val items = MutableLiveData<MutableList<MainSecondModel>>()
+
+    init{
+        items.value = mutableListOf()
+    }
 
 
 }

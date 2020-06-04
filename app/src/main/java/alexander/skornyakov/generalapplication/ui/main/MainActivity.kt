@@ -29,4 +29,8 @@ class MainActivity : AppCompatActivity() {
         var appBarConfiguration = AppBarConfiguration(navController.graph, drawer)
         toolbar.setupWithNavController(navController, appBarConfiguration)
     }
+
+    fun setTitle(title: String){
+        toolbar.title = title
+    }
 }

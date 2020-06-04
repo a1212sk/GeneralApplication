@@ -65,7 +65,7 @@ class FirstFragment : Fragment(){
         vm = viewModelProviderFactory.create(FirstViewModel::class.java)
     }
 
-    fun initData(binding: MainFirstFragmentBinding){
+    private fun initData(binding: MainFirstFragmentBinding){
         val items = binding.vm?.items
         items?.value?.clear()
         loadDataJob = CoroutineScope(Dispatchers.IO + Job()).launch {
