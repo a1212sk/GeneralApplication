@@ -19,7 +19,7 @@ class SimpleRepository @Inject constructor(val context: Context) : IRepository {
                     BitmapFactory.decodeResource(context?.resources, R.drawable.daisies_5091308_640)
                 val item =
                     MainFirstModel("Header $it", image,
-                        context.resources.getString(R.string.text))
+                        context.resources.getString(R.string.chapter_text))
                 emit(item)
             }
         }
